@@ -17,11 +17,11 @@ hook.Add( "player_connect", "CyberScriptz_VacAnnounce", function( data )
 	http.Fetch( "https://steamcommunity.com/profiles/[U:1:" .. ( ( steamid[3] * 2 ) + steamid[2] ) .. "]/?xml=1",
 		function( body, len, headers, code )
 			if string.Split( body, "<vacBanned>" )[2][1] == "1" then
-				print( "Warning: " .. data.name .. " is connecting to this server with a VAC ban." )
+				print( "Warning: \"" .. data.name .. "\" is connecting to this server with a VAC ban." )
 				if AnnounceMode < 3 then
 					for k, ply in pairs( player.GetAll() ) do
-						if AnnounceMode == 0 or ( AnnounceMode == 1 and ply:IsAdmin() ) or ( AnnounceMode == 2 and ply:IsSuperAdmin() ) then
-							ply:PrintMessage( HUD_PRINTTALK, "Warning: " .. data.name .. " has a VAC ban on their Steam account." )
+						if AnnounceMode == 0 or ( AnnounceMode == 1 and ( ply:IsAdmin() or ply:IsSuperAdmin() ) or ( AnnounceMode == 2 and ply:IsSuperAdmin() ) )
+							ply:PrintMessage( HUD_PRINTTALK, "Warning: \"" .. data.name .. "\" has a VAC ban on their Steam account." )
 						end
 					end
 				end
