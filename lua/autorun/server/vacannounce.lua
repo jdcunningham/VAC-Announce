@@ -11,6 +11,11 @@ cvars.AddChangeCallback( "vac_announce_mode", function( convar_name, value_old, 
 	AnnounceMode = value_new
 end )
 
+if game.SinglePlayer() then
+	print( "VAC Announce disabled since we're in singleplayer." )
+	return
+end
+
 gameevent.Listen( "player_connect" )
 hook.Add( "player_connect", "CyberScriptz_VacAnnounce", function( data )
 	steamid = string.Split( data.networkid, ":" )
@@ -20,7 +25,7 @@ hook.Add( "player_connect", "CyberScriptz_VacAnnounce", function( data )
 				print( "Warning: \"" .. data.name .. "\" is connecting to this server with a VAC ban." )
 				if AnnounceMode < 3 then
 					for k, ply in pairs( player.GetAll() ) do
-						if AnnounceMode == 0 or ( AnnounceMode == 1 and ( ply:IsAdmin() or ply:IsSuperAdmin() ) or ( AnnounceMode == 2 and ply:IsSuperAdmin() ) )
+						if AnnounceMode == 0 or ( AnnounceMode == 1 and ( ply:IsAdmin() or ply:IsSuperAdmin() ) or ( AnnounceMode == 2 and ply:IsSuperAdmin() ) ) then
 							ply:PrintMessage( HUD_PRINTTALK, "Warning: \"" .. data.name .. "\" has a VAC ban on their Steam account." )
 						end
 					end
