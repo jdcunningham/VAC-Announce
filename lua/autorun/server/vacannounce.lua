@@ -21,7 +21,7 @@ hook.Add( "player_connect", "CyberScriptz_VacAnnounce", function( data )
 				if AnnounceMode < 3 then
 					for k, ply in pairs( player.GetAll() ) do
 						if AnnounceMode == 0 or ( AnnounceMode == 1 and ply:IsAdmin() ) or ( AnnounceMode == 2 and ply:IsSuperAdmin() ) then
-							PrintMessage( HUD_PRINTTALK, "Warning: " .. data.name .. " has a VAC ban on their Steam account." )
+							ply:PrintMessage( HUD_PRINTTALK, "Warning: " .. data.name .. " has a VAC ban on their Steam account." )
 						end
 					end
 				end
