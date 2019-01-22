@@ -4,8 +4,8 @@ AnnounceMode = GetConVar( "vac_announce_mode" ):GetInt()
 
 cvars.AddChangeCallback( "vac_announce_mode", function( convar_name, value_old, value_new )
 	value_new = tonumber( value_new )
-	if value_new < 0 || value_new > 3 then
-		GetConVar( "vac_announce_mode" ):SetInt( 0 )
+	if value_new < 0 or value_new > 3 then
+		GetConVar( "vac_announce_mode" ):SetInt( value_old )
 		return
 	end
 	AnnounceMode = value_new
@@ -18,7 +18,7 @@ hook.Add( "player_connect", "CyberScriptz_VacAnnounce", function( data )
 		function( body, len, headers, code )
 			if string.Split( body, "<vacBanned>" )[2][1] == "1" then
 				print( "Warning: " .. data.name .. " is connecting to this server with a VAC ban." )
-				if AnnounceMode < 2 then
+				if AnnounceMode < 3 then
 					for k, ply in pairs( player.GetAll() ) do
 						if AnnounceMode == 0 or ( AnnounceMode == 1 and ply:IsAdmin() ) or ( AnnounceMode == 2 and ply:IsSuperAdmin() ) then
 							PrintMessage( HUD_PRINTTALK, "Warning: " .. data.name .. " has a VAC ban on their Steam account." )
