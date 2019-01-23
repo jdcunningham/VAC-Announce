@@ -67,7 +67,7 @@ function BroadcastBanInfo( name, steamuid )
 			if AnnounceMode < 3 and ( AnnounceEveryone or vac_bans ~= 0 or game_bans ~= 0 ) then
 				if BroadcastTimeout[steamuid] == nil or ( BroadcastTimeout[steamuid] + AnnounceTimeout <= SysTime() ) then
 					for k, ply in pairs( player.GetAll() ) do
-						if AnnounceMode == 0 or ( AnnounceMode == 1 and ( ply:IsAdmin() or ply:IsSuperAdmin() ) or ( AnnounceMode == 2 and ply:IsSuperAdmin() ) ) then
+						if AnnounceMode == 0 or ( AnnounceMode == 1 and ( ply:IsAdmin() or ply:IsSuperAdmin() ) ) or ( AnnounceMode == 2 and ply:IsSuperAdmin() ) then
 							net.Start( "VACMessage" )
 							net.WriteString( name )
 							net.WriteString( vac_bans )
